@@ -1318,7 +1318,7 @@ const matches = [
     league: "UCL · Octavos · Vuelta · 17 Mar (1ª ida: 0–3)",
     thumbnail: "https://media.tycsports.com/files/2026/03/15/932160/sporting-lisboa-vs-fk-bodoglimt-en-vivo-como-llegan-al-partido_862x485.webp",
     stream: "https://qbk4f.envivoslatam.org/fox2ar/index.m3u8?token=65d660acaf02460f1aa85cd203b5b701982d3eda-11-1773812783-1773758783&ip=38.156.89.75",
-    iframe: "https://futbollibretv.su/eventos/?r=aHR0cHM6Ly9sYXRhbXZpZHoxLmNvbS9jYW5hbC5waHA/c3RyZWFtPXR1ZG5fdXNh",
+    iframe: "https://latamvidz1.com/canal.php?stream=fox2",
     status: "live",
     time: "17:45 UTC",
     scoreHome: "",
@@ -1595,7 +1595,6 @@ function playStream(match) {
   // ── Función para cargar iframe (fallback o modo principal) ──
   function loadIframe() {
     if (!match.iframe) {
-      // Sin iframe de respaldo → mostrar error
       errorMsg.textContent = 'Stream no disponible y no hay fuente de respaldo configurada.';
       showOverlay('error');
       return;
@@ -1608,6 +1607,18 @@ function playStream(match) {
     };
     // Fallback: ocultar overlay tras 3s por si onload no dispara
     setTimeout(() => showOverlay('none'), 3000);
+
+    // ── Auto pantalla completa ──────────────────────────
+    // El clic del usuario ya cuenta como gesto → podemos llamar
+    // requestFullscreen() directamente aquí
+    const req = playerWrapper.requestFullscreen
+              || playerWrapper.webkitRequestFullscreen
+              || playerWrapper.mozRequestFullScreen;
+    if (req) {
+      req.call(playerWrapper).catch(() => {
+        // Algunos navegadores bloquean aun con gesto → silenciar error
+      });
+    }
   }
 
   // ══════════════════════════════════════════════════════
@@ -1725,6 +1736,33 @@ function toggleFullscreen() {
   } else {
     (document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen).call(document);
     fsBtn.querySelector('svg').innerHTML = SVG_FS_ON;
+  }
+}
+
+/* ── Fullscreen change: si el iframe estaba activo y el usuario
+      sale de pantalla completa (tecla Esc o botón del navegador),
+      detener el iframe y volver al overlay idle ────────────────── */
+document.addEventListener('fullscreenchange',       onFsChange);
+document.addEventListener('webkitfullscreenchange', onFsChange);
+document.addEventListener('mozfullscreenchange',    onFsChange);
+
+function onFsChange() {
+  const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
+  fsBtn.querySelector('svg').innerHTML = isFullscreen ? SVG_FS_OFF : SVG_FS_ON;
+
+  // Si salió de fullscreen Y el iframe estaba activo → detenerlo
+  if (!isFullscreen && mainIframe.style.display === 'block') {
+    mainIframe.src = '';                          // detener reproducción
+    mainIframe.style.display = 'none';
+    video.style.display      = 'block';
+    document.getElementById('player-controls').style.display = 'flex';
+    document.getElementById('progress-wrap').style.display   = 'block';
+    currentMatch = null;
+    nowPlayingTitle.textContent = 'Selecciona un partido';
+    showOverlay('idle');
+    // Quitar highlight de la tarjeta activa
+    document.querySelectorAll('.match-card').forEach(c => c.classList.remove('active-card'));
+    activeCardId = null;
   }
 }
 

@@ -1799,20 +1799,38 @@ function createStickyBar() {
 /* ══════════════════════════════════════════════════════════
    ██  POPUNDER — Solo 1 vez por visita ██
 
-   El Popunder de Adsterra normalmente se activa solo,
-   pero controlarlo desde aquí nos da más control:
-   - Solo se dispara UNA vez por visita (no en cada clic)
-   - Se activa con el PRIMER clic real del usuario
-   - Esto cumple mejor las políticas y es menos molesto
+   REGLA IMPORTANTE: El popunder NO se dispara cuando el
+   usuario hace clic en una tarjeta de partido o en el
+   reproductor. Solo se dispara en clics "neutros" como
+   el header, footer, ticker, etc.
+
+   Esto evita que el anuncio tape el stream justo cuando
+   el usuario intenta ver el partido.
 ══════════════════════════════════════════════════════════ */
 let popunderFired = false;
-function firePopunderOnce() {
+
+function firePopunderOnce(e) {
   if (popunderFired || !adConfig.popunder) return;
+
+  /* Ignorar clics dentro de tarjetas de partidos */
+  if (e.target.closest('.match-card')) return;
+
+  /* Ignorar clics dentro del reproductor */
+  if (e.target.closest('#player-wrapper')) return;
+
+  /* Ignorar clics en botones de filtro */
+  if (e.target.closest('.filter-tab')) return;
+
+  /* Ignorar clics en el menú móvil */
+  if (e.target.closest('#menu-toggle') || e.target.closest('#mobile-nav')) return;
+
+  /* Todo lo demás → disparar el popunder */
   popunderFired = true;
   injectGlobalScript(adConfig.popunder);
 }
-/* Escuchar el primer clic en cualquier parte de la página */
-document.addEventListener('click', firePopunderOnce, { once: true });
+
+/* Escuchar clics en toda la página, pero con la lógica de filtro arriba */
+document.addEventListener('click', firePopunderOnce);
 
 /* ══════════════════════════════════════════════════════════
    ██  INICIALIZACIÓN — Carga todos los anuncios al abrir ██

@@ -1319,7 +1319,7 @@ const matches = [
     league: "UCL · Octavos · Vuelta · 17 Mar (1ª ida: 0–3)",
     thumbnail: "https://s.yimg.com/ny/api/res/1.2/UIjAa.AmhaK2dn6JCvyOjQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTQyNjtjZj13ZWJw/https://media.zenfs.com/en/playmakerstats_articles_264/529408566be67cf901d20669606216b8",
     stream: "",
-    iframe: "https://latamvidz1.com/canal.php?stream=tudn_usa",
+    iframe: "https://futbollibretv.su/eventos/?r=aHR0cHM6Ly9lc3ZpZGVvZnkuY29tL21heDQucGhw",
     status: "live",
     time: "20:00 UTC",
     scoreHome: "",
@@ -1336,7 +1336,7 @@ const matches = [
     league: "UCL · Octavos · Vuelta · 17 Mar (1ª ida: 2–5)",
     thumbnail: "https://www.ole.com.ar/2026/03/10/5n8R4O6ro_720x0__1.jpg",
     stream: "",
-    iframe: "https://latamvidz1.com/canal.php?stream=espn2",
+    iframe: "https://futbollibretv.su/eventos/?r=aHR0cHM6Ly9lc3ZpZGVvZnkuY29tL290ZS5waHA/aWQ9dG50MnVr",
     status: "live",
     time: "20:00 UTC",
     scoreHome: "",
@@ -1353,7 +1353,7 @@ const matches = [
     league: "UCL · Octavos · Vuelta · 17 Mar (1ª ida: 1–1)",
     thumbnail: "https://s.yimg.com/ny/api/res/1.2/YYrg_lRu_oE.tpx1xm3jPw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTQyNjtjZj13ZWJw/https://media.zenfs.com/en/playmakerstats_articles_264/4a1cff32ffc88620aee64d1844d1be65",
     stream: "",
-    iframe: "https://latamvidz1.com/canal.php?stream=espn",
+    iframe: "https://futbollibretv.su/eventos/?r=aHR0cHM6Ly9lc3ZpZGVvZnkuY29tL3Zpcmdpbm0yLnBocA==",
     status: "live",
     time: "20:00 UTC",
     scoreHome: "",
@@ -1438,61 +1438,419 @@ const matches = [
 ];
 
 /* ══════════════════════════════════════════════════════════
-   ██  AD CONFIG  ██
-   Reemplaza los valores con tus propios códigos Adsterra.
-   isMobile   → anuncio 320×50
-   isDesktop  → anuncio 728×90
-   Los scripts se inyectan dinámicamente para carga limpia.
+   ██  AD CONFIG — SISTEMA PRO ADSTERRA  ██
+
+   FORMATOS DISPONIBLES EN ADSTERRA (ordenados por CPM):
+   ┌─────────────────┬──────────────────────────────────────┐
+   │ Formato         │ Descripción                          │
+   ├─────────────────┼──────────────────────────────────────┤
+   │ Popunder        │ Abre ventana detrás al 1er clic.     │
+   │                 │ Mayor CPM: ~$3–8 LATAM 💰💰💰        │
+   ├─────────────────┼──────────────────────────────────────┤
+   │ Social Bar      │ Barra flotante tipo notificación.    │
+   │                 │ No invasivo. CPM: ~$1–4 💰💰          │
+   ├─────────────────┼──────────────────────────────────────┤
+   │ Native Banner   │ Anuncio disfrazado de contenido.     │
+   │                 │ Alta CTR por ser "natural". 💰💰      │
+   ├─────────────────┼──────────────────────────────────────┤
+   │ Banner          │ Banners clásicos: 300×250, 728×90,   │
+   │                 │ 320×50. CPM: ~$0.5–2 💰              │
+   ├─────────────────┼──────────────────────────────────────┤
+   │ Smartlink       │ Link inteligente — detecta el        │
+   │                 │ dispositivo y muestra el mejor ad.   │
+   │                 │ Ideal para botones de "Ver partido". │
+   └─────────────────┴──────────────────────────────────────┘
+
+   CÓMO OBTENER TUS CÓDIGOS:
+     1. Entra a adsterra.com → Publishers → tu sitio
+     2. Haz clic en "Add Format" y selecciona el tipo
+     3. Adsterra te genera un código (HTML o <script>)
+     4. Cópialo y pégalo en el campo correspondiente abajo
+     5. Guarda el archivo y sube a GitHub → listo
+
+   NOTA: Los campos vacíos `` son seguros — si no tienes
+   el código aún, el slot simplemente no aparece.
 ══════════════════════════════════════════════════════════ */
 const adConfig = {
-  mobile: {
-    // Código HTML/script de tu bloque Adsterra 320x50 para móvil
-    // Ejemplo: '<script async src="//cdn.adsterra.com/tag/XXXX.js"><\/script>'
-    html: `<div style="text-align:center;color:#555;font-size:12px;padding:10px;border:1px dashed #222;border-radius:8px;width:320px;">
-             📢 Espacio publicitario 320×50 (Adsterra)<br>
-             <small>Reemplaza con tu código Adsterra</small>
-           </div>`
-  },
-  desktop: {
-    // Código HTML/script de tu bloque Adsterra 728x90 para desktop
-    html: `<div style="text-align:center;color:#555;font-size:12px;padding:10px;border:1px dashed #222;border-radius:8px;width:728px;max-width:100%;">
-             📢 Espacio publicitario 728×90 (Adsterra)<br>
-             <small>Reemplaza con tu código Adsterra</small>
-           </div>`
-  }
+
+  /* ══════════════════════════════════════════════════════
+     1. POPUNDER
+     ══════════════════════════════════════════════════════
+     QUÉ ES: Al primer clic del usuario se abre una ventana
+     detrás con el anuncio. Mayor CPM de todos los formatos.
+
+     PASOS PARA OBTENERLO EN ADSTERRA:
+       1. Entra a adsterra.com
+       2. Publishers → tu sitio → Add Format
+       3. Selecciona "Popunder"
+       4. Copia el código que te aparece (es un <script>)
+
+     CÓMO PEGARLO AQUÍ:
+       → Borra las dos comillas de abajo que están vacías: ``
+       → Entre esas comillas pega tu código de Adsterra
+       → Resultado final debe verse así:
+          popunder: `<script async src="//cdn.adsterra.com/tag/TUCODIGO.js"><\/script>`,
+  ══════════════════════════════════════════════════════ */
+  popunder: `<script src="https://pl28923261.effectivegatecpm.com/15/7f/93/157f930c95d47280d34a6369853ecb4d.js"><\/script>`,
+
+  /* ══════════════════════════════════════════════════════
+     2. SOCIAL BAR
+     ══════════════════════════════════════════════════════
+     QUÉ ES: Barra flotante discreta en la esquina de la
+     pantalla. No molesta al usuario. Segundo mejor CPM.
+
+     PASOS PARA OBTENERLO EN ADSTERRA:
+       1. Publishers → tu sitio → Add Format
+       2. Selecciona "Social Bar"
+       3. Copia el código <script> que te aparece
+
+     CÓMO PEGARLO AQUÍ:
+       → Borra las dos comillas vacías: ``
+       → Entre esas comillas pega tu código
+       → Resultado final:
+          socialBar: `<script async src="//cdn.adsterra.com/tag/TUCODIGO.js"><\/script>`,
+  ══════════════════════════════════════════════════════ */
+  socialBar: `<script src="https://pl28924737.effectivegatecpm.com/e0/31/a7/e031a7b765a5340ae0704a96edc6a5b3.js"><\/script>`,
+
+  /* ══════════════════════════════════════════════════════
+     3. NATIVE BANNER
+     ══════════════════════════════════════════════════════
+     QUÉ ES: Anuncio que parece una tarjeta de contenido
+     normal. Los usuarios hacen más clic porque se mezcla
+     con las tarjetas de partidos → CTR muy alto.
+
+     PASOS PARA OBTENERLO EN ADSTERRA:
+       1. Publishers → tu sitio → Add Format
+       2. Selecciona "Native Banner"
+       3. Copia TODO el bloque de código que te aparece
+          (puede ser un <script> o un bloque HTML largo)
+
+     CÓMO PEGARLO AQUÍ:
+       → Borra las dos comillas vacías: ``
+       → Entre esas comillas pega todo el código
+       → Resultado final:
+          nativeBanner: `<script async src="//...TUCODIGO..."><\/script>`,
+  ══════════════════════════════════════════════════════ */
+  nativeBanner: `<script async="async" data-cfasync="false" src="https://pl28935634.effectivegatecpm.com/2d8dc5e3728b19e789683977f9409608/invoke.js"><\/script><div id="container-2d8dc5e3728b19e789683977f9409608"></div>`,
+
+  /* Esto es un placeholder visual que se muestra SOLO
+     mientras nativeBanner esté vacío. No lo borres. */
+  nativeBannerPlaceholder: `
+    <div style="background:#161616;border:1px dashed #1e1e1e;border-radius:10px;
+                padding:14px 16px;display:flex;align-items:center;gap:14px;
+                max-width:600px;width:100%;">
+      <div style="width:80px;height:60px;background:#1e1e1e;border-radius:6px;
+                  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+                  color:#333;font-size:20px;">📢</div>
+      <div style="flex:1;">
+        <div style="font-size:12px;color:#444;margin-bottom:4px;">PUBLICIDAD</div>
+        <div style="font-size:14px;color:#555;font-weight:600;">Native Banner — Pega tu código en nativeBanner</div>
+        <div style="font-size:11px;color:#333;margin-top:4px;">Adsterra → Add Format → Native Banner</div>
+      </div>
+    </div>`,
+
+  /* ══════════════════════════════════════════════════════
+     4. BANNER 300×250
+     ══════════════════════════════════════════════════════
+     QUÉ ES: Banner rectangular. El tamaño con MAYOR CPM
+     en toda la industria. Funciona en móvil y desktop.
+     Se muestra entre las tarjetas de partidos.
+
+     PASOS PARA OBTENERLO EN ADSTERRA:
+       1. Publishers → tu sitio → Add Format
+       2. Selecciona "Banner"
+       3. En tamaño elige: 300×250
+       4. Copia el código que te aparece
+
+     CÓMO PEGARLO AQUÍ:
+       → Borra las dos comillas vacías: ``
+       → Entre esas comillas pega tu código
+  ══════════════════════════════════════════════════════ */
+  banner300x250: ``,
+  //               ↑↑ BORRA ESTO `` Y PEGA AQUÍ TU CÓDIGO 300×250
+
+  /* Placeholder visual mientras banner300x250 esté vacío. No lo borres. */
+  banner300x250Placeholder: `
+    <div style="text-align:center;color:#444;font-size:11px;padding:8px;
+                border:1px dashed #1e1e1e;border-radius:8px;width:300px;
+                min-height:250px;display:flex;flex-direction:column;
+                align-items:center;justify-content:center;gap:6px;background:#111;">
+      <span style="font-size:24px;">📢</span>
+      <span style="color:#555;">Banner 300×250</span>
+      <small style="color:#333;">Pega tu código en banner300x250</small>
+    </div>`,
+
+  /* ══════════════════════════════════════════════════════
+     5a. BANNER 728×90 (SOLO DESKTOP)
+     ══════════════════════════════════════════════════════
+     QUÉ ES: Banner horizontal ancho. Solo aparece en
+     pantallas grandes (computadoras). En móvil no se
+     muestra porque no cabe.
+
+     PASOS PARA OBTENERLO EN ADSTERRA:
+       1. Publishers → tu sitio → Add Format
+       2. Selecciona "Banner"
+       3. En tamaño elige: 728×90
+       4. Copia el código
+
+     CÓMO PEGARLO AQUÍ:
+       → Borra las dos comillas vacías: ``
+       → Entre esas comillas pega tu código
+  ══════════════════════════════════════════════════════ */
+  bannerDesktop: `<script>atOptions={'key':'c098c0af18fbe4fec91e261323699675','format':'iframe','height':90,'width':728,'params':{}};<\/script><script src="https://www.highperformanceformat.com/c098c0af18fbe4fec91e261323699675/invoke.js"><\/script>`,
+
+  /* Placeholder visual mientras bannerDesktop esté vacío. No lo borres. */
+  bannerDesktopPlaceholder: `
+    <div style="text-align:center;color:#444;font-size:11px;padding:8px;
+                border:1px dashed #1e1e1e;border-radius:8px;width:728px;
+                max-width:100%;min-height:90px;display:flex;align-items:center;
+                justify-content:center;gap:8px;background:#111;">
+      <span>📢</span><span style="color:#555;">Banner 728×90 — Pega tu código en bannerDesktop</span>
+    </div>`,
+
+  /* ══════════════════════════════════════════════════════
+     5b. BANNER 320×50 (SOLO MÓVIL)
+     ══════════════════════════════════════════════════════
+     QUÉ ES: Banner compacto para móvil. Aparece en la
+     parte superior de la página Y en la barra sticky
+     pegada al fondo de la pantalla en móviles.
+
+     PASOS PARA OBTENERLO EN ADSTERRA:
+       1. Publishers → tu sitio → Add Format
+       2. Selecciona "Banner"
+       3. En tamaño elige: 320×50
+       4. Copia el código
+
+     CÓMO PEGARLO AQUÍ:
+       → Borra las dos comillas vacías: ``
+       → Entre esas comillas pega tu código
+  ══════════════════════════════════════════════════════ */
+  bannerMobile: `<script>atOptions={'key':'8672a679b2ef362fb27c8fff5b63c75d','format':'iframe','height':50,'width':320,'params':{}};<\/script><script src="https://www.highperformanceformat.com/8672a679b2ef362fb27c8fff5b63c75d/invoke.js"><\/script>`,
+
+  /* Placeholder visual mientras bannerMobile esté vacío. No lo borres. */
+  bannerMobilePlaceholder: `
+    <div style="text-align:center;color:#444;font-size:11px;padding:6px;
+                border:1px dashed #1e1e1e;border-radius:6px;width:320px;
+                max-width:100%;min-height:50px;display:flex;align-items:center;
+                justify-content:center;gap:6px;background:#111;">
+      <span>📢</span><span style="color:#555;">Banner 320×50 — Pega tu código en bannerMobile</span>
+    </div>`,
+
+  /* ══════════════════════════════════════════════════════
+     6. SMARTLINK
+     ══════════════════════════════════════════════════════
+     QUÉ ES: Una URL inteligente de Adsterra que detecta
+     el dispositivo y país del usuario y lo lleva al
+     anuncio más rentable posible. Se usa como un enlace
+     href normal en botones o texto.
+
+     PASOS PARA OBTENERLO EN ADSTERRA:
+       1. Publishers → tu sitio → Add Format
+       2. Selecciona "Smartlink"
+       3. Copia la URL que te aparece
+          (empieza con https://smartlink.adsterra.com/...)
+
+     CÓMO PEGARLO AQUÍ:
+       → Borra las dos comillas vacías: ``
+       → Entre esas comillas pega solo la URL
+       → Resultado final:
+          smartlink: `https://smartlink.adsterra.com/TUCODIGO`
+  ══════════════════════════════════════════════════════ */
+  smartlink: `https://www.effectivegatecpm.com/pqy5e1xgie?key=a658a0b9f7394296224dfcbca31e4404`
 };
 
 /* ══════════════════════════════════════════════════════════
-   ██  AD LOADER  ██
-   Detecta el dispositivo e inyecta el ad apropiado.
-   Parámetros:
-     containerId → id del div contenedor
-     adHTML      → código del anuncio a insertar
+   ██  AD LOADER — Inyecta un anuncio en un contenedor ██
+
+   Cómo funciona:
+   - Recibe el ID del div contenedor y el HTML del anuncio
+   - Si el anuncio tiene <script> dentro, lo re-crea para
+     que el navegador lo ejecute (innerHTML no ejecuta scripts)
+   - Si el HTML está vacío, no hace nada → slot invisible
 ══════════════════════════════════════════════════════════ */
-function loadAd(containerId, adHTML) {
+function loadAd(containerId, html) {
   const container = document.getElementById(containerId);
-  if (!container) return;
-  // Insertar HTML del anuncio
-  container.innerHTML = adHTML;
-  // Ejecutar scripts que vengan dentro del ad HTML (si los hay)
+  if (!container || !html || html.trim() === '') return;
+  container.innerHTML = html;
+  /* Re-ejecutar scripts dentro del HTML del anuncio */
   container.querySelectorAll('script').forEach(oldScript => {
     const newScript = document.createElement('script');
-    Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+    Array.from(oldScript.attributes).forEach(attr =>
+      newScript.setAttribute(attr.name, attr.value)
+    );
     newScript.textContent = oldScript.textContent;
     oldScript.parentNode.replaceChild(newScript, oldScript);
   });
 }
 
-/* Detectar tipo de dispositivo */
-const isMobile  = window.innerWidth <= 768;
-const adHTML    = isMobile ? adConfig.mobile.html : adConfig.desktop.html;
+/* ══════════════════════════════════════════════════════════
+   ██  INJECT GLOBAL SCRIPT ██
 
-/* Cargar anuncios en todos los slots */
+   Para formatos que van en el <head> (Popunder, Social Bar):
+   no necesitan un contenedor div, se inyectan directamente
+   en el documento y Adsterra los renderiza solos.
+══════════════════════════════════════════════════════════ */
+function injectGlobalScript(html) {
+  if (!html || html.trim() === '') return;
+  const wrap = document.createElement('div');
+  wrap.innerHTML = html;
+  wrap.querySelectorAll('script').forEach(oldScript => {
+    const newScript = document.createElement('script');
+    Array.from(oldScript.attributes).forEach(attr =>
+      newScript.setAttribute(attr.name, attr.value)
+    );
+    newScript.textContent = oldScript.textContent;
+    document.head.appendChild(newScript);
+  });
+}
+
+/* ── Detectar si el usuario está en móvil o desktop ────── */
+const isMobile = window.innerWidth <= 768;
+
+/* ══════════════════════════════════════════════════════════
+   ██  STICKY BOTTOM BAR (SOLO MÓVIL) ██
+
+   QUÉ ES: Una barra fija pegada al fondo de la pantalla
+   en móvil que muestra el banner 320×50 siempre visible.
+
+   POR QUÉ ES RENTABLE: Como nunca desaparece del scroll,
+   acumula muchísimas impresiones por sesión → +ingresos.
+
+   TIENE BOTÓN ✕: El usuario puede cerrarla si quiere,
+   esto cumple con las políticas de Adsterra y Google.
+══════════════════════════════════════════════════════════ */
+function createStickyBar() {
+  /* Solo en móvil y solo si tienes el banner configurado */
+  if (!isMobile) return;
+
+  const bar = document.createElement('div');
+  bar.id = 'ad-sticky-bar';
+  bar.setAttribute('aria-label', 'Publicidad');
+  bar.style.cssText = `
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0a0a0a;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 4px 0;
+    min-height: 58px;
+  `;
+
+  /* Botón cerrar — importante para no molestar al usuario */
+  const closeBtn = document.createElement('button');
+  closeBtn.innerHTML = '✕';
+  closeBtn.setAttribute('aria-label', 'Cerrar anuncio');
+  closeBtn.style.cssText = `
+    position: absolute; top: 4px; right: 8px;
+    background: rgba(255,255,255,0.08);
+    border: none; color: #666;
+    font-size: 10px; width: 18px; height: 18px;
+    border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1;
+  `;
+  closeBtn.onclick = () => {
+    bar.style.display = 'none';
+    /* Quitar el padding extra del body al cerrar */
+    document.body.style.paddingBottom = '0';
+  };
+
+  /* Insertar el anuncio dentro de la barra */
+  const adWrap = document.createElement('div');
+  const stickyCode = adConfig.bannerMobile || adConfig.bannerMobilePlaceholder;
+  adWrap.innerHTML = stickyCode;
+  adWrap.querySelectorAll('script').forEach(oldScript => {
+    const newScript = document.createElement('script');
+    Array.from(oldScript.attributes).forEach(attr =>
+      newScript.setAttribute(attr.name, attr.value)
+    );
+    newScript.textContent = oldScript.textContent;
+    oldScript.parentNode.replaceChild(newScript, oldScript);
+  });
+
+  bar.appendChild(closeBtn);
+  bar.appendChild(adWrap);
+  document.body.appendChild(bar);
+
+  /* Añadir padding al body para que el contenido no quede
+     tapado detrás de la barra sticky */
+  document.body.style.paddingBottom = '66px';
+}
+
+/* ══════════════════════════════════════════════════════════
+   ██  POPUNDER — Solo 1 vez por visita ██
+
+   El Popunder de Adsterra normalmente se activa solo,
+   pero controlarlo desde aquí nos da más control:
+   - Solo se dispara UNA vez por visita (no en cada clic)
+   - Se activa con el PRIMER clic real del usuario
+   - Esto cumple mejor las políticas y es menos molesto
+══════════════════════════════════════════════════════════ */
+let popunderFired = false;
+function firePopunderOnce() {
+  if (popunderFired || !adConfig.popunder) return;
+  popunderFired = true;
+  injectGlobalScript(adConfig.popunder);
+}
+/* Escuchar el primer clic en cualquier parte de la página */
+document.addEventListener('click', firePopunderOnce, { once: true });
+
+/* ══════════════════════════════════════════════════════════
+   ██  INICIALIZACIÓN — Carga todos los anuncios al abrir ██
+══════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
-  loadAd('ad-top',          adHTML);
-  loadAd('ad-below-player', adHTML);
-  loadAd('ad-footer',       adHTML);
-  // El slot mid se carga al renderizar las tarjetas
+
+  /* 1. SOCIAL BAR → se inyecta globalmente, Adsterra lo
+        renderiza solo en la esquina de la pantalla */
+  injectGlobalScript(adConfig.socialBar);
+
+  /* 2. BANNER TOP (barra encima del ticker de resultados)
+        · Móvil   → 320×50  (compacto, no estorba)
+        · Desktop → 728×90  (ancho completo) */
+  loadAd('ad-top',
+    isMobile
+      ? (adConfig.bannerMobile || adConfig.bannerMobilePlaceholder)
+      : (adConfig.bannerDesktop || adConfig.bannerDesktopPlaceholder)
+  );
+
+  /* 3. NATIVE BANNER bajo el reproductor
+        · Siempre → Native Banner (parece contenido, alto CTR)
+        · El div wrapper limita el ancho en móvil para que
+          no se salga de la pantalla */
+  const belowPlayerSlot = document.getElementById('ad-below-player');
+  if (belowPlayerSlot) {
+    /* En móvil forzamos max-width para que el native banner
+       no sobrepase los bordes de la pantalla */
+    belowPlayerSlot.style.maxWidth  = '100%';
+    belowPlayerSlot.style.overflowX = 'hidden';
+  }
+  loadAd('ad-below-player',
+    adConfig.nativeBanner ||
+    adConfig.nativeBannerPlaceholder
+  );
+
+  /* 4. BANNER FOOTER (al fondo de la página)
+        · Móvil   → 320×50
+        · Desktop → 728×90
+        En móvil ocultamos el slot footer para no saturar
+        la pantalla (ya tiene el sticky bar abajo) */
+  if (!isMobile) {
+    loadAd('ad-footer', adConfig.bannerDesktop || adConfig.bannerDesktopPlaceholder);
+  } else {
+    /* En móvil el footer no muestra banner extra porque el
+       sticky bar ya ocupa ese espacio → mejor UX */
+    const footerSlot = document.getElementById('ad-footer');
+    if (footerSlot) footerSlot.style.display = 'none';
+  }
+
+  /* 5. STICKY BAR MÓVIL → barra 320×50 pegada al fondo
+        Solo aparece en móvil, tiene botón ✕ para cerrar */
+  createStickyBar();
+
+  /* Los slots ENTRE TARJETAS se cargan en renderMatches() */
 });
 
 /* ══════════════════════════════════════════════════════════
@@ -1861,11 +2219,13 @@ function renderMatches(filter = 'all') {
       ? `<button class="watch-btn upcoming-btn">🔔 Recordar</button>`
       : `<button class="watch-btn finished-btn">📺 Repetición</button>`;
 
-    // Insert mid-ad after 3rd card (index 2)
-    const adSlotHtml = (idx === 2 && filter !== 'live')
+    // ── Insertar anuncio 300×250 cada 2 tarjetas ──────────
+    // Los anuncios entre contenido tienen el mayor CTR (viewability alta)
+    const adSlotHtml = (idx > 0 && idx % 2 === 0)
       ? `</div>
-         <div class="ad-slot" id="ad-mid" style="grid-column:1/-1;margin:8px 0;min-height:90px;border-radius:12px;overflow:hidden;background:var(--bg-secondary);"></div>
-         <div class="matches-grid-continue" style="display:contents;">`
+         <div class="ad-slot ad-mid-slot" id="ad-mid-${idx}"
+              style="grid-column:1/-1;margin:4px 0 8px;display:flex;align-items:center;justify-content:center;min-height:${isMobile ? '260px' : '100px'};border-radius:12px;overflow:hidden;background:var(--bg-secondary);"></div>
+         <div style="display:contents;">`
       : '';
 
     html += `${adSlotHtml}<article
@@ -1913,10 +2273,19 @@ function renderMatches(filter = 'all') {
 
   grid.innerHTML = html;
 
-  // Load mid-ad if rendered
-  if (document.getElementById('ad-mid')) {
-    loadAd('ad-mid', adHTML);
-  }
+  /* Cargar anuncio en cada slot generado entre tarjetas.
+     Orden de preferencia:
+       1. Native Banner  → mayor CTR (parece contenido)
+       2. Banner 300×250 → mayor CPM de banners
+       3. Placeholder    → si no tienes código aún */
+  document.querySelectorAll('.ad-mid-slot').forEach(slot => {
+    loadAd(slot.id,
+      adConfig.nativeBanner            ||
+      adConfig.nativeBannerPlaceholder ||
+      adConfig.banner300x250           ||
+      adConfig.banner300x250Placeholder
+    );
+  });
 }
 
 /* ══════════════════════════════════════════════════════════

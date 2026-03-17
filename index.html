@@ -1576,8 +1576,6 @@ function playStream(match) {
         setPlayBtnIcon(true);
         showOverlay('none');
         showToast('▶ Reproduciendo: ' + match.title, 'success');
-        // Scroll to player
-        document.querySelector('.player-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
       }).catch(err => {
         // Autoplay blocked — show play button
         showOverlay('none');
@@ -1848,6 +1846,9 @@ function handleCardClick(matchId) {
   const cardEl = document.getElementById(matchId);
   if (cardEl) cardEl.classList.add('active-card');
   activeCardId = matchId;
+
+  // Desplazar al reproductor inmediatamente al hacer clic
+  document.querySelector('.player-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   playStream(match);
 }

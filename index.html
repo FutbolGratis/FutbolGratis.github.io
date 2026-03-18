@@ -457,8 +457,10 @@
         <p>Transmisión en vivo · FOX Sports 1 · HD</p>
       </div>
       <!-- BOTÓN VER EN VIVO — al hacer clic muestra el iframe -->
-      <a class="btn-live" href="https://futbollibretv.su/eventos/?r=aHR0cHM6Ly9lc3ZpZGVvZnkuY29tL290ZS5waHA/aWQ9Zm94MXVz" target="_blank" rel="noopener" id="btn-watch">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+     <a class="btn-live" href="https://futbollibretv.su/eventos/?r=aHR0cHM6Ly9lc3ZpZGVvZnkuY29tL290ZS5waHA/aWQ9Zm94MXVz" id="btn-watch" onclick="abrirStream(event)">
+  <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+  Ver en Vivo
+</a>
         Ver en Vivo
       </a>
     </div>
@@ -591,6 +593,32 @@
   // Cargar el iframe solo cuando el usuario lo pide (mejor UX + más clics = más popunder)
   
   }
+  function abrirStream(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btn-watch');
+
+  // Cambia el botón a "Cargando..." mientras espera
+  btn.innerHTML = `
+    <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#fff">
+      <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.93V17a1 1 0 0 1-2 0v-.07A8 8 0 0 1 4.07 11H5a1 1 0 0 1 0 2h-.93A8 8 0 0 1 11 4.07V5a1 1 0 0 1 2 0v-.93A8 8 0 0 1 19.93 11H19a1 1 0 0 1 0-2h.93A8 8 0 0 1 13 16.93z"/>
+    </svg>
+    Cargando...`;
+  btn.style.opacity = '.7';
+  btn.style.pointerEvents = 'none';
+
+  // Espera 1.5 segundos para que el popunder se dispare primero,
+  // luego abre el stream en pestaña nueva
+  setTimeout(() => {
+    window.open(
+      'https://futbollibretv.su/eventos/?r=aHR0cHM6Ly9lc3ZpZGVvZnkuY29tL290ZS5waHA/aWQ9Zm94MXVz',
+      '_blank'
+    );
+    // Restaura el botón
+    btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#fff"><path d="M8 5v14l11-7z"/></svg> Ver en Vivo`;
+    btn.style.opacity = '1';
+    btn.style.pointerEvents = 'auto';
+  }, 1500);
+}
 </script>
 
 </body>

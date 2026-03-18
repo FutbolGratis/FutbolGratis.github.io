@@ -457,23 +457,14 @@
         <p>Transmisión en vivo · FOX Sports 1 · HD</p>
       </div>
       <!-- BOTÓN VER EN VIVO — al hacer clic muestra el iframe -->
-      <a class="btn-live" href="#" id="btn-watch" onclick="startStream(event)">
+      <a class="btn-live" href="https://futbollibretv.su/eventos/?r=aHR0cHM6Ly9lc3ZpZGVvZnkuY29tL290ZS5waHA/aWQ9Zm94MXVz" target="_blank" rel="noopener" id="btn-watch">
         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         Ver en Vivo
       </a>
     </div>
 
     <!-- PLAYER (oculto hasta clic) -->
-    <div class="player-wrapper" id="player">
-      <iframe
-        id="stream-iframe"
-        src=""
-        allowfullscreen
-        allow="autoplay; fullscreen; encrypted-media"
-        scrolling="no"
-        title="Inter Miami vs Nashville – En Vivo"
-      ></iframe>
-    </div>
+   
 
     <!-- INFO BAR -->
     <div class="info-bar">
@@ -598,24 +589,7 @@
 
   // ── ACTIVAR STREAM AL HACER CLIC EN EL BOTÓN ──
   // Cargar el iframe solo cuando el usuario lo pide (mejor UX + más clics = más popunder)
-  function startStream(e) {
-    e.preventDefault();
-    const player = document.getElementById('player');
-    const iframe  = document.getElementById('stream-iframe');
-    const btn     = document.getElementById('btn-watch');
-
-    if (!player.classList.contains('active')) {
-      iframe.src = 'https://futbollibretv.su/eventos/?r=aHR0cHM6Ly9lc3ZpZGVvZnkuY29tL290ZS5waHA/aWQ9Zm94MXVz';
-      player.classList.add('active');
-      btn.innerHTML = `
-        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#fff">
-          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-        </svg>
-        Reproduciendo...`;
-      btn.style.background = 'linear-gradient(135deg,#10b981,#059669)';
-      // Scroll suave al player
-      player.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
+  
   }
 </script>
 

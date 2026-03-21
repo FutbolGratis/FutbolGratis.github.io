@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cargando partido... — FutbolGratis</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       VARIABLES — Mantén las mismas de index.html para coherencia
+       ============================================================ */
+    :root {
+      --bg:    #0b0e13;
+      --bg2:   #131820;
+      --bg3:   #1a2030;
+      --green: #00e676;
+      --red:   #ff3d3d;
+      --text:  #f0f4ff;
+      --muted: #8892a4;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ============================================================
+       HEADER (igual que index.html)
+       ============================================================ */
+    header {
+      background: var(--bg2);
+      border-bottom: 2px solid rgba(0,230,118,0.15);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-icon { font-size: 28px; }
+    .logo-text {
+      font-family: 'Oswald', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 1px;
+    }
+    .logo-text span { color: var(--green); }
+
+    /* ============================================================
+       CONTENIDO PRINCIPAL
+       ============================================================ */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 30px 16px 100px;
+      gap: 28px;
+      max-width: 680px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* ============================================================
+       ANUNCIO SUPERIOR — Adsterra 320x50 / 728x90
+       ⬇ BORRA el .ad-placeholder y pega el <script> de Adsterra
+       ============================================================ */
+    .ad-top-redirect {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      background: var(--bg2);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      min-height: 62px;
+    }
+
+    .ad-placeholder {
+      background: var(--bg3);
+      border: 1px dashed rgba(255,255,255,0.12);
+      color: var(--muted);
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      text-align: center;
+      line-height: 1.6;
+      width: 320px;
+      height: 50px;
+    }
+
+    @media (min-width: 768px) {
+      .ad-placeholder { width: 728px; height: 90px; }
+    }
+
+    /* ============================================================
+       TARJETA DE PARTIDO EN CURSO
+       ============================================================ */
+    .now-playing-card {
+      background: var(--bg2);
+      border: 1px solid rgba(0,230,118,0.2);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .now-playing-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    #match-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    @media (max-width: 400px) {
+      #match-title { font-size: 20px; }
+    }
+
+    /* ============================================================
+       CUENTA REGRESIVA
+       ============================================================ -->
+    <!-- ⬇ Cambia el tiempo de espera en el JS (variable SEGUNDOS) -->
+       ============================================================ */
+    .countdown-wrap {
+      background: var(--bg2);
+      border: 1px solid rgba(0,230,118,0.15);
+      border-radius: var(--radius);
+      padding: 28px 20px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .countdown-label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .countdown-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 72px;
+      font-weight: 700;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 10px;
+      transition: color 0.3s;
+    }
+
+    .countdown-num.urgent { color: var(--red); }
+
+    .progress-bar-wrap {
+      background: var(--bg3);
+      border-radius: 99px;
+      height: 6px;
+      overflow: hidden;
+      margin: 0 auto;
+      max-width: 280px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--green);
+      border-radius: 99px;
+      transition: width 1s linear, background 0.3s;
+      width: 100%;
+    }
+
+    .progress-bar.urgent { background: var(--red); }
+
+    .redirect-msg {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ============================================================
+       BOTÓN MANUAL (si el usuario no quiere esperar)
+       ============================================================ */
+    .skip-btn {
+      display: inline-block;
+      margin-top: 18px;
+      background: transparent;
+      border: 1px solid var(--green);
+      color: var(--green);
+      font-family: 'Oswald', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 9px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .skip-btn:hover {
+      background: var(--green);
+      color: #000;
+    }
+
+    /* ============================================================
+       ANUNCIO GRANDE CENTRAL — Adsterra 300x250
+       ⬇ BORRA .ad-placeholder-big y pega el <script> de Adsterra
+       Este es el ANUNCIO PRINCIPAL antes de la redirección
+       ============================================================ */
+    .ad-center {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .ad-placeholder-big {
+      background: var(--bg3);
+      border: 1px dashed rgba(255,255,255,0.12);
+      color: var(--muted);
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      width: 300px;
+      height: 250px;
+      text-align: center;
+      line-height: 1.8;
+      gap: 6px;
+    }
+
+    .ad-placeholder-big strong { color: var(--text); font-size: 14px; }
+
+    /* ============================================================
+       VOLVER ATRÁS
+       ============================================================ */
+    .back-link {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.15s;
+    }
+
+    .back-link:hover { color: var(--text); }
+
+    /* ============================================================
+       BANNER STICKY INFERIOR — Adsterra 320x50
+       ⬇ BORRA .ad-placeholder-sticky y pega el <script> de Adsterra
+       ============================================================ */
+    .ad-sticky-bottom {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--bg2);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 6px 0;
+      z-index: 200;
+      min-height: 62px;
+    }
+
+    .ad-placeholder-sticky {
+      background: var(--bg3);
+      border: 1px dashed rgba(255,255,255,0.12);
+      color: var(--muted);
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      width: 320px;
+      height: 50px;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.6; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       HEADER — Cambia el nombre si es necesario
+       ============================================================ -->
+  <header>
+    <a class="logo" href="index.html">
+      <span class="logo-icon">⚽</span>
+      <span class="logo-text">Futbol<span>Gratis</span></span>
+    </a>
+  </header>
+
+
+  <!-- ============================================================
+       ANUNCIO SUPERIOR — Banner Adsterra 320x50 / 728x90
+       ⬇ BORRA .ad-placeholder y pega el <script> de Adsterra
+       ============================================================ -->
+  <div class="ad-top-redirect">
+    <div class="ad-placeholder">📢 Adsterra — Banner 320×50 / 728×90<br>(parte superior)</div>
+    <!-- PEGA AQUÍ EL CÓDIGO DE ADSTERRA -->
+  </div>
+
+
+  <main>
+
+    <!-- Tarjeta: partido que se va a ver -->
+    <div class="now-playing-card">
+      <p class="now-playing-label">⚽ Vas a ver</p>
+      <!-- Este texto lo rellena automáticamente el JavaScript con el parámetro ?match= de la URL -->
+      <h1 id="match-title">Cargando...</h1>
+    </div>
+
+
+    <!-- ============================================================
+         ANUNCIO CENTRAL GRANDE — Adsterra 300x250
+         Este es el anuncio que el usuario ve MIENTRAS espera el conteo
+         ⬇ BORRA .ad-placeholder-big y pega el <script> de Adsterra
+         ============================================================ -->
+    <div class="ad-center">
+      <div class="ad-placeholder-big">
+        <strong>📢 Anuncio Adsterra</strong>
+        300×250<br>(anuncio principal<br>durante la espera)
+      </div>
+      <!-- PEGA AQUÍ EL CÓDIGO DE ADSTERRA (300x250 o Interstitial) -->
+    </div>
+
+
+    <!-- ============================================================
+         CUENTA REGRESIVA
+         ⬇ Cambia el número en la variable SEGUNDOS del JS (más abajo)
+         ============================================================ -->
+    <div class="countdown-wrap">
+      <p class="countdown-label">Serás redirigido al stream en...</p>
+      <div class="countdown-num" id="count">10</div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar" id="progress"></div>
+      </div>
+      <p class="redirect-msg">Por favor espera mientras cargamos el partido 🎬</p>
+
+      <!-- Botón para ir directamente sin esperar -->
+      <a class="skip-btn" id="skip-btn" href="#">▶ Ir ahora al partido</a>
+    </div>
+
+
+    <!-- Enlace para volver -->
+    <a class="back-link" href="index.html">← Volver a partidos</a>
+
+  </main>
+
+
+  <!-- ============================================================
+       BANNER STICKY INFERIOR — Adsterra 320x50
+       ⬇ BORRA .ad-placeholder-sticky y pega el <script> de Adsterra
+       ============================================================ -->
+  <div class="ad-sticky-bottom">
+    <div class="ad-placeholder-sticky">📢 Adsterra — Sticky 320×50 (fijo abajo)</div>
+    <!-- PEGA AQUÍ EL CÓDIGO DE ADSTERRA -->
+  </div>
+
+
+  <!-- ============================================================
+       JAVASCRIPT — Lee los parámetros de la URL y hace el conteo
+       ============================================================ -->
+  <script>
+    // ============================================================
+    // CONFIGURACIÓN — Solo cambia este número
+    // ⬇ Tiempo en segundos antes de redirigir al usuario
+    const SEGUNDOS = 10;
+    // ============================================================
+
+    // Lee los parámetros de la URL: ?match=...&link=...
+    const params  = new URLSearchParams(window.location.search);
+    const match   = params.get('match') || 'Partido en vivo';
+    const destino = params.get('link')  || 'https://futbollibre.net';
+
+    // Muestra el nombre del partido en la tarjeta
+    document.getElementById('match-title').textContent = match;
+
+    // Enlaza el botón "Ir ahora" al destino
+    document.getElementById('skip-btn').href = destino;
+
+    // Cuenta regresiva
+    let restantes = SEGUNDOS;
+    const numEl   = document.getElementById('count');
+    const barEl   = document.getElementById('progress');
+
+    function tick() {
+      restantes--;
+      numEl.textContent = restantes;
+
+      // Barra de progreso
+      const pct = (restantes / SEGUNDOS) * 100;
+      barEl.style.width = pct + '%';
+
+      // Pone en rojo los últimos 3 segundos
+      if (restantes <= 3) {
+        numEl.classList.add('urgent');
+        barEl.classList.add('urgent');
+      }
+
+      if (restantes <= 0) {
+        clearInterval(timer);
+        // ⬇ Redirige al usuario al stream
+        window.location.href = destino;
+      }
+    }
+
+    const timer = setInterval(tick, 1000);
+  </script>
+
+</body>
+</html>

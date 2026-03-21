@@ -3,623 +3,585 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inter Miami vs Nashville SC | En Vivo – MLS</title>
-  <meta name="description" content="Mira Inter Miami vs Nashville SC en vivo. Streaming gratis en HD." />
-  <meta property="og:image" content="https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_1919,h_1079/c_fill,w_1440,ar_1440:810,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/si/01k89ff0cj5dsxvv9a7d.jpg" />
-  <!-- FUENTES -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <!-- ============================================================
-       ADSTERRA — SOCIAL BAR
-       Se muestra automáticamente como barra flotante.
-       Uno de los formatos de mayor RPM sin molestar al usuario.
-  ============================================================ -->
-  <script src="https://pl28924737.profitablecpmratenetwork.com/e0/31/a7/e031a7b765a5340ae0704a96edc6a5b3.js"></script>
+       TÍTULO Y META — Cambia el nombre del sitio aquí
+       ============================================================ -->
+  <title>FutbolGratis — Ver fútbol en vivo gratis</title>
+  <meta name="description" content="Mira los partidos de fútbol en vivo gratis. Transmisiones en directo sin registro." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <style>
+    /* ============================================================
+       VARIABLES DE COLOR — Cambia el tema aquí
+       ============================================================ */
     :root {
-      --bg:       #05080f;
-      --surface:  #0c1220;
-      --surface2: #111827;
-      --border:   #1c2840;
-      --pink:     #f72585;   /* color Inter Miami */
-      --cyan:     #4cc9f0;
-      --gold:     #ffd60a;
-      --text:     #e8f0fe;
-      --muted:    #5a7090;
-      --live:     #ef4444;
-      --radius:   14px;
-      --font-h:   'Syne', sans-serif;
-      --font-b:   'Inter', sans-serif;
+      --bg:        #0b0e13;
+      --bg2:       #131820;
+      --bg3:       #1a2030;
+      --green:     #00e676;
+      --red:       #ff3d3d;
+      --text:      #f0f4ff;
+      --muted:     #8892a4;
+      --card-border: rgba(0,230,118,0.15);
+      --radius:    14px;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: var(--font-b);
+      font-family: 'Barlow', sans-serif;
       min-height: 100vh;
-      overflow-x: hidden;
     }
 
-    /* Fondo atmosférico */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0;
-      background:
-        radial-gradient(ellipse 60% 40% at 20% 10%, rgba(247,37,133,.08), transparent),
-        radial-gradient(ellipse 50% 35% at 80% 90%, rgba(76,201,240,.07), transparent);
-      pointer-events: none;
-    }
-
-    /* ── LAYOUT PRINCIPAL ── */
-    .wrapper {
-      position: relative; z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr 300px;
-      grid-template-areas:
-        "topbar   topbar"
-        "header   header"
-        "ad-top   ad-top"
-        "stream   sidebar"
-        "native   native"
-        "ad-bot   ad-bot"
-        "footer   footer";
-      gap: 14px;
-      max-width: 1380px;
-      margin: 0 auto;
-      padding: 14px;
-    }
-
-    /* ── TOP BAR ── */
-    .topbar {
-      grid-area: topbar;
+    /* ============================================================
+       HEADER
+       ============================================================ */
+    header {
+      background: var(--bg2);
+      border-bottom: 2px solid var(--card-border);
+      padding: 14px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 16px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 12px;
-      color: var(--muted);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-    .topbar .brand {
-      font-family: var(--font-h);
-      font-size: 14px;
+
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+
+    /* ⬇ Cambia el emoji por <img src="logo.png" width="32"> si tienes logo */
+    .logo-icon { font-size: 28px; line-height: 1; }
+
+    .logo-text {
+      font-family: 'Oswald', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
       color: var(--text);
-      letter-spacing: .06em;
-    }
-    .topbar .brand span { color: var(--pink); }
-
-    /* ── HEADER DEL PARTIDO ── */
-    .match-header {
-      grid-area: header;
-      background: linear-gradient(135deg, var(--surface) 0%, #0f1a2e 100%);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px 32px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      position: relative;
-      overflow: hidden;
-    }
-    /* línea decorativa */
-    .match-header::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--pink), var(--cyan), var(--gold));
+      letter-spacing: 1px;
     }
 
-    .competition {
+    /* ⬇ Cambia el color del texto resaltado */
+    .logo-text span { color: var(--green); }
+
+    .live-badge-header {
+      background: var(--red);
+      color: #fff;
+      font-family: 'Oswald', sans-serif;
       font-size: 11px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--gold);
       font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-    .competition::before {
-      content: '⚽';
-      font-size: 14px;
+      letter-spacing: 1.5px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      animation: pulse 1.5s infinite;
     }
 
-    .teams {
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.6; }
+    }
+
+    /* ============================================================
+       ANUNCIO SUPERIOR — Banner Adsterra 320x50 (móvil) / 728x90 (PC)
+       ⬇ BORRA el .ad-placeholder y pega el <script> de Adsterra
+       ============================================================ */
+    .ad-top {
       display: flex;
-      align-items: center;
-      gap: 24px;
-      flex-wrap: wrap;
       justify-content: center;
-    }
-    .team {
-      display: flex;
       align-items: center;
-      gap: 12px;
-    }
-    .crest {
-      width: 54px; height: 54px;
-      border-radius: 50%;
-      background: var(--surface2);
-      border: 2px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 24px;
-    }
-    .team-name {
-      font-family: var(--font-h);
-      font-size: 26px;
-      letter-spacing: .02em;
-      line-height: 1;
-    }
-    .team-sub {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 3px;
-    }
-    .vs {
-      font-family: var(--font-h);
-      font-size: 32px;
-      color: var(--border);
-      padding: 0 4px;
+      padding: 10px 0;
+      background: var(--bg2);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      min-height: 62px;
     }
 
-    .live-badge {
+    .ad-placeholder {
+      background: var(--bg3);
+      border: 1px dashed rgba(255,255,255,0.12);
+      color: var(--muted);
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      width: 320px;
+      height: 50px;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .ad-placeholder { width: 728px; height: 90px; }
+    }
+
+    /* ============================================================
+       CONTENIDO PRINCIPAL
+       ============================================================ */
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 24px 16px 100px;
+    }
+
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 18px;
       display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(239,68,68,.12);
-      border: 1px solid rgba(239,68,68,.3);
-      border-radius: 30px;
-      padding: 8px 18px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--live);
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-    .live-dot {
-      width: 8px; height: 8px;
-      background: var(--live);
-      border-radius: 50%;
-      animation: blink 1.2s infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
-
-    /* ── BANNER SUPERIOR ── */
-    .ad-top {
-      grid-area: ad-top;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 50px;
     }
 
-    /* ── STREAM CONTAINER ── */
-    .stream-col {
-      grid-area: stream;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.07);
     }
 
-    /* Tarjeta antes del player */
-    .pre-player {
-      background: var(--surface);
-      border: 1px solid var(--border);
+    /* ============================================================
+       TARJETAS DE PARTIDO
+       ============================================================ */
+    .matches { display: flex; flex-direction: column; gap: 14px; }
+
+    .match-card {
+      background: var(--bg2);
+      border: 1px solid var(--card-border);
       border-radius: var(--radius);
-      padding: 14px 18px;
+      padding: 20px 18px;
+      cursor: pointer;
+      transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+      text-decoration: none;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Barra verde izquierda decorativa */
+    .match-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--green);
+      border-radius: 3px 0 0 3px;
+    }
+
+    .match-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(0,230,118,0.45);
+      box-shadow: 0 8px 32px rgba(0,230,118,0.08);
+    }
+
+    .match-card:active { transform: translateY(0); }
+
+    /* Fila superior: liga + LIVE */
+    .match-meta {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .pre-player p { font-size: 13px; color: var(--muted); }
-    .pre-player strong { color: var(--text); }
-
-    /* Botón Ver en Vivo */
-    .btn-live {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: linear-gradient(135deg, var(--pink), #b5179e);
-      color: #fff;
-      font-family: var(--font-h);
-      font-size: 16px;
-      letter-spacing: .06em;
-      padding: 13px 28px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform .15s, box-shadow .15s;
-      box-shadow: 0 4px 20px rgba(247,37,133,.35);
-      white-space: nowrap;
-    }
-    .btn-live:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(247,37,133,.5);
-    }
-    .btn-live svg { width: 18px; height: 18px; fill: #fff; flex-shrink: 0; }
-
-    /* Player wrapper — oculto hasta que se clickea el botón */
-    .player-wrapper {
-      display: none;
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #000;
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 0 0 50px rgba(247,37,133,.1);
-    }
-    .player-wrapper.active { display: block; }
-    .player-wrapper iframe {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      border: none;
+      margin-bottom: 14px;
     }
 
-    /* Info bar bajo el player */
-    .info-bar {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 11px 16px;
+    .match-league {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .live-dot {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--red);
+      letter-spacing: 1px;
+    }
+
+    .live-dot::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--red);
+      border-radius: 50%;
+      animation: pulse 1.2s infinite;
+    }
+
+    /* Equipos */
+    .match-teams {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .team {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+    }
+
+    /* ⬇ Sustituye el emoji por <img src="escudo.png" width="48"> para escudos reales */
+    .team-badge { font-size: 38px; line-height: 1; }
+
+    .team-name {
+      font-family: 'Oswald', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+
+    .vs-divider {
+      font-family: 'Oswald', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    /* Pie de tarjeta: canal + botón */
+    .match-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 12px;
+    }
+
+    .match-channel {
       font-size: 12px;
       color: var(--muted);
-      flex-wrap: wrap;
-    }
-    .info-bar .dot { width:6px;height:6px;border-radius:50%;background:var(--cyan);display:inline-block;margin-right:4px; }
-
-    /* ── SIDEBAR ── */
-    .sidebar {
-      grid-area: sidebar;
       display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .ad-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      min-height: 260px;
-      text-align: center;
+      gap: 5px;
     }
-    .ad-label {
-      font-size: 10px;
+
+    .match-channel strong { color: var(--text); }
+
+    .watch-btn {
+      background: var(--green);
+      color: #000;
+      font-family: 'Oswald', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 7px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      white-space: nowrap;
+      pointer-events: none; /* el clic lo maneja el <a> padre */
+    }
+
+    .match-card:hover .watch-btn { background: #33ffaa; }
+    .match-card:active .watch-btn { transform: scale(0.97); }
+
+    /* ============================================================
+       ANUNCIO ENTRE PARTIDOS — Adsterra 300x250 o Native
+       ⬇ BORRA .ad-placeholder-mid y pega el <script> de Adsterra
+       ============================================================ */
+    .ad-mid {
+      display: flex;
+      justify-content: center;
+      margin: 6px 0;
+    }
+
+    .ad-placeholder-mid {
+      background: var(--bg3);
+      border: 1px dashed rgba(255,255,255,0.12);
       color: var(--muted);
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    /* ── NATIVE BANNER ── */
-    .native-zone {
-      grid-area: native;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px;
-      min-height: 80px;
-    }
-
-    /* ── BANNER INFERIOR ── */
-    .ad-bot {
-      grid-area: ad-bot;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 50px;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      grid-area: footer;
-      text-align: center;
       font-size: 11px;
-      color: var(--muted);
-      padding: 12px;
-      border-top: 1px solid var(--border);
-      line-height: 1.9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      width: 300px;
+      height: 250px;
+      text-align: center;
+      line-height: 1.6;
     }
 
-    /* ── STICKY MÓVIL ── */
-    .sticky-mobile {
-      display: none;
+    /* ============================================================
+       MENSAJE: Sin partidos en vivo (descomenta si no hay partidos)
+       ============================================================ */
+    .no-matches {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+    }
+
+    .no-matches .icon { font-size: 52px; margin-bottom: 16px; }
+
+    .no-matches h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 22px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .no-matches p { font-size: 14px; line-height: 1.6; }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer {
+      text-align: center;
+      padding: 24px 20px;
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* ============================================================
+       BANNER STICKY INFERIOR — Adsterra 320x50 (muy efectivo en móvil)
+       ⬇ BORRA .ad-placeholder-sticky y pega el <script> de Adsterra
+       ============================================================ */
+    .ad-sticky-bottom {
       position: fixed;
       bottom: 0; left: 0; right: 0;
-      z-index: 9999;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
+      display: flex;
       justify-content: center;
       align-items: center;
-      padding: 4px 0;
-      min-height: 52px;
-      max-height: 60px;
+      background: var(--bg2);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 6px 0;
+      z-index: 200;
+      min-height: 62px;
     }
 
-    /* ── RESPONSIVE MÓVIL ── */
-    @media (max-width: 768px) {
-      .wrapper {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-          "topbar"
-          "header"
-          "ad-top"
-          "stream"
-          "native"
-          "ad-bot"
-          "footer";
-        padding: 10px;
-        gap: 10px;
-      }
-      .sidebar { display: none; }
-      .sticky-mobile { display: flex; }
-      body { padding-bottom: 62px; }
-      .team-name { font-size: 18px; }
-      .crest { width: 40px; height: 40px; font-size: 18px; }
-      .vs { font-size: 22px; }
-      .match-header { padding: 18px 16px; }
-      .btn-live { font-size: 14px; padding: 11px 20px; width: 100%; justify-content: center; }
-      .pre-player { flex-direction: column; text-align: center; }
+    .ad-placeholder-sticky {
+      background: var(--bg3);
+      border: 1px dashed rgba(255,255,255,0.12);
+      color: var(--muted);
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      width: 320px;
+      height: 50px;
     }
   </style>
 </head>
 <body>
 
-<div class="wrapper">
-
-  <!-- TOP BAR -->
-  <div class="topbar">
-    <span class="brand">⚡ Live<span>Sports</span></span>
-    <span id="clock">Cargando hora...</span>
-  </div>
-
-  <!-- HEADER PARTIDO -->
-  <header class="match-header">
-    <div class="competition">MLS · Major League Soccer</div>
-
-    <div class="teams">
-      <div class="team">
-        <div class="crest">
-  <img src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/20232.png&scale=crop&cquality=40&location=origin&w=80&h=80" alt="Inter Miami" style="width:40px;height:40px;object-fit:contain;border-radius:50%;" />
-</div>
-        <div>
-          <div class="team-name">Inter Miami</div>
-          <div class="team-sub">Florida, EE.UU.</div>
-        </div>
-      </div>
-      <span class="vs">vs</span>
-      <div class="team">
-        <div>
-          <div class="team-name">Nashville SC</div>
-          <div class="team-sub">Tennessee, EE.UU.</div>
-        </div>
-        <div class="crest">
-  <img src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/18986.png&cquality=40&h=144&scale=crop&w=144" alt="Nashville SC" style="width:40px;height:40px;object-fit:contain;border-radius:50%;" />
-</div>
-      </div>
-    </div>
-
-    <div class="live-badge">
-      <span class="live-dot"></span>
-      En Vivo
-    </div>
+  <!-- ============================================================
+       HEADER
+       ⬇ Cambia "FutbolGratis" por el nombre de tu sitio
+       ============================================================ -->
+  <header>
+    <a class="logo" href="index.html">
+      <span class="logo-icon">⚽</span>
+      <!-- ⬇ Cambia el nombre aquí -->
+      <span class="logo-text">Futbol<span>Gratis</span></span>
+    </a>
+    <span class="live-badge-header">EN VIVO</span>
   </header>
 
+
   <!-- ============================================================
-       BANNER SUPERIOR 728x90 (Desktop) / 320x50 (Móvil)
-       Adsterra mostrará el tamaño correcto automáticamente.
-  ============================================================ -->
+       ANUNCIO SUPERIOR
+       ⬇ BORRA esta línea y pega el <script> de Adsterra (320x50 o 728x90)
+       ============================================================ -->
   <div class="ad-top">
-    <!-- BANNER 728x90 — visible en desktop -->
-    <div class="desktop-banner">
-      <script>
-        atOptions = {
-          'key' : 'c098c0af18fbe4fec91e261323699675',
-          'format' : 'iframe',
-          'height' : 90,
-          'width' : 728,
-          'params' : {}
-        };
-      </script>
-      <script src="https://www.highperformanceformat.com/c098c0af18fbe4fec91e261323699675/invoke.js"></script>
-    </div>
+    <div class="ad-placeholder">📢 Adsterra — Banner Superior<br>320×50 móvil / 728×90 escritorio</div>
+    <!-- PEGA AQUÍ EL CÓDIGO DE ADSTERRA -->
   </div>
 
-  <!-- STREAM COLUMN -->
-  <div class="stream-col">
 
-    <!-- Tarjeta con el botón -->
-    <div class="pre-player">
-      <div>
-        <strong>Inter Miami CF vs Nashville SC</strong>
-        <p>Transmisión en vivo · FOX Sports 1 · HD</p>
+  <main>
+    <p class="section-title">Partidos en vivo hoy</p>
+
+    <!--
+    ================================================================
+    LISTA DE PARTIDOS
+    ================================================================
+
+    CÓMO EDITAR:
+    → Copia un bloque de <a class="match-card"> hasta su </a> cierre.
+    → Cambia los campos marcados con los comentarios ⬇.
+    → En el href: cambia el parámetro "link=" por la URL real del stream
+      y "match=" por el nombre del partido (usa %20 para espacios).
+    → Para ocultar un partido que ya terminó, agrega:
+        style="display:none"
+      en la etiqueta <a>.
+
+    FORMATO DEL HREF:
+      redirect.html?match=Equipo1%20vs%20Equipo2&link=https://urldeltstream.com
+
+    ================================================================
+    -->
+
+    <div class="matches">
+
+      <!-- ========================
+           PARTIDO 1 — EDITA AQUÍ
+           ======================== -->
+      <a class="match-card"
+         href="redirect.html?match=Barcelona%20vs%20Atletico%20Madrid&link=https://futbollibre.net">
+
+        <div class="match-meta">
+          <!-- ⬇ Cambia la competición -->
+          <span class="match-league">🏆 LaLiga</span>
+          <span class="live-dot">EN VIVO</span>
+        </div>
+
+        <div class="match-teams">
+          <div class="team">
+            <!-- ⬇ Emoji o <img src="barca.png" width="48"> -->
+            <span class="team-badge">🔵🔴</span>
+            <!-- ⬇ Nombre del equipo local -->
+            <span class="team-name">Barcelona</span>
+          </div>
+
+          <span class="vs-divider">VS</span>
+
+          <div class="team">
+            <!-- ⬇ Emoji o escudo del equipo visitante -->
+            <span class="team-badge">🔴⚪</span>
+            <!-- ⬇ Nombre del equipo visitante -->
+            <span class="team-name">Atlético</span>
+          </div>
+        </div>
+
+        <div class="match-footer">
+          <!-- ⬇ Cambia el canal que transmite -->
+          <span class="match-channel">📡 Canal:&nbsp;<strong>FutbolLibre</strong></span>
+          <button class="watch-btn">▶ Ver partido</button>
+        </div>
+      </a>
+      <!-- FIN PARTIDO 1 -->
+
+
+      <!-- ========================
+           ANUNCIO ENTRE PARTIDOS
+           ⬇ BORRA .ad-placeholder-mid y pega el <script> de Adsterra 300x250
+           ======================== -->
+      <div class="ad-mid">
+        <div class="ad-placeholder-mid">📢 Adsterra — Cuadro 300×250<br>(entre partidos)</div>
+        <!-- PEGA AQUÍ EL CÓDIGO DE ADSTERRA -->
       </div>
-      <!-- BOTÓN VER EN VIVO — al hacer clic muestra el iframe -->
-     <a class="btn-live" href="https://futbollibretv.su/eventos/?r=aHR0cHM6Ly9lc3ZpZGVvZnkuY29tL290ZS5waHA/aWQ9Zm94MXVz" id="btn-watch" onclick="abrirStream(event)">
-  <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-  Ver en Vivo
-</a>
-        Ver en Vivo
+
+
+      <!-- ========================
+           PARTIDO 2 — EDITA AQUÍ
+           ======================== -->
+      <a class="match-card"
+         href="redirect.html?match=Real%20Madrid%20vs%20Bayern%20Munich&link=https://futbollibre.net">
+
+        <div class="match-meta">
+          <!-- ⬇ Cambia la competición -->
+          <span class="match-league">⭐ Champions League</span>
+          <span class="live-dot">EN VIVO</span>
+        </div>
+
+        <div class="match-teams">
+          <div class="team">
+            <span class="team-badge">⚪🟣</span>
+            <span class="team-name">Real Madrid</span>
+          </div>
+
+          <span class="vs-divider">VS</span>
+
+          <div class="team">
+            <span class="team-badge">🔴⚪</span>
+            <span class="team-name">Bayern</span>
+          </div>
+        </div>
+
+        <div class="match-footer">
+          <span class="match-channel">📡 Canal:&nbsp;<strong>FutbolLibre</strong></span>
+          <button class="watch-btn">▶ Ver partido</button>
+        </div>
       </a>
-    </div>
+      <!-- FIN PARTIDO 2 -->
 
-    <!-- PLAYER (oculto hasta clic) -->
-   
 
-    <!-- INFO BAR -->
-    <div class="info-bar">
-      <span><span class="dot"></span>Stream HD</span>
-      <span>📺 FOX Sports 1</span>
-      <span>🕐 Tiempo real</span>
-      <span style="margin-left:auto; color:var(--cyan); font-size:12px;">
-        Si no carga, recarga la página
-      </span>
-    </div>
+      <!-- ========================
+           PARTIDO 3 — EDITA AQUÍ
+           Para agregar más partidos, copia este bloque completo
+           ======================== -->
+      <a class="match-card"
+         href="redirect.html?match=PSG%20vs%20Inter%20Milan&link=https://futbollibre.net">
 
-  </div>
+        <div class="match-meta">
+          <span class="match-league">⭐ Champions League</span>
+          <span class="live-dot">EN VIVO</span>
+        </div>
 
-  <!-- SIDEBAR DESKTOP -->
-  <aside class="sidebar">
+        <div class="match-teams">
+          <div class="team">
+            <span class="team-badge">🔵🔴</span>
+            <span class="team-name">PSG</span>
+          </div>
 
-    <!-- ============================================================
-         BANNER 300x250 — Sidebar #1 (mejor RPM en desktop)
-    ============================================================ -->
-    <div class="ad-box">
-      <div class="ad-label">Publicidad</div>
-      <script>
-        atOptions = {
-          'key' : '5f7a3313eb154cd3c33c1a70acebe77b',
-          'format' : 'iframe',
-          'height' : 250,
-          'width' : 300,
-          'params' : {}
-        };
-      </script>
-      <script src="https://www.highperformanceformat.com/5f7a3313eb154cd3c33c1a70acebe77b/invoke.js"></script>
-    </div>
+          <span class="vs-divider">VS</span>
 
-    <!-- Smartlink como botón de canal alternativo (monetiza clics) -->
-    <div class="ad-box" style="min-height:80px; background: linear-gradient(135deg,#0f1a2e,#1a0a2e);">
-      <div class="ad-label">¿Problemas con el stream?</div>
-      <a href="https://www.profitablecpmratenetwork.com/pqy5e1xgie?key=a658a0b9f7394296224dfcbca31e4404"
-         target="_blank" rel="noopener"
-         style="display:inline-flex;align-items:center;gap:8px;margin-top:6px;
-                background:var(--cyan);color:#000;font-family:var(--font-h);
-                font-size:13px;padding:10px 18px;border-radius:8px;text-decoration:none;
-                transition:opacity .15s;"
-         onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
-        🔗 Canal Alternativo
+          <div class="team">
+            <span class="team-badge">🖤🔵</span>
+            <span class="team-name">Inter</span>
+          </div>
+        </div>
+
+        <div class="match-footer">
+          <span class="match-channel">📡 Canal:&nbsp;<strong>ESPN</strong></span>
+          <button class="watch-btn">▶ Ver partido</button>
+        </div>
       </a>
-    </div>
+      <!-- FIN PARTIDO 3 -->
 
-  </aside>
+
+      <!-- ========================
+           SIN PARTIDOS EN VIVO
+           Descomenta este bloque (quita los !-- y --)
+           y comenta/elimina las tarjetas de arriba cuando no haya partidos
+           ======================== -->
+      <!--
+      <div class="no-matches">
+        <div class="icon">🕐</div>
+        <h2>Sin partidos en vivo ahora</h2>
+        <p>Vuelve más tarde.<br>¡No te pierdas nada!</p>
+      </div>
+      -->
+
+    </div><!-- /matches -->
+  </main>
+
 
   <!-- ============================================================
-       NATIVE BANNER — Alta visibilidad, buen CTR
-       Se muestra entre el player y el footer en todas las pantallas.
-  ============================================================ -->
-  <div class="native-zone">
-    <script async="async" data-cfasync="false"
-      src="https://pl28935634.profitablecpmratenetwork.com/2d8dc5e3728b19e789683977f9409608/invoke.js">
-    </script>
-    <div id="container-2d8dc5e3728b19e789683977f9409608"></div>
-  </div>
-
-  <!-- ============================================================
-       BANNER INFERIOR 728x90
-  ============================================================ -->
-  <div class="ad-bot">
-    <script>
-      atOptions = {
-        'key' : 'c098c0af18fbe4fec91e261323699675',
-        'format' : 'iframe',
-        'height' : 90,
-        'width' : 728,
-        'params' : {}
-      };
-    </script>
-    <script src="https://www.highperformanceformat.com/c098c0af18fbe4fec91e261323699675/invoke.js"></script>
-  </div>
-
-  <!-- FOOTER -->
+       FOOTER — Cambia el año y el nombre si es necesario
+       ============================================================ -->
   <footer>
-    <p>© 2025 · LiveSports · Streaming en vivo gratuito</p>
-    <p style="opacity:.45; margin-top:3px;">
-      Este sitio no almacena archivos de video. El contenido proviene de servidores externos.
-    </p>
+    &copy; 2025 <strong>FutbolGratis</strong> — Solo para uso informativo.<br>
+    No alojamos ningún contenido de video en nuestros servidores.
   </footer>
 
-</div><!-- fin .wrapper -->
 
-
-<!-- ============================================================
-     STICKY BANNER MÓVIL 320x50 — Fijo en la parte inferior
-     Solo visible en pantallas < 768px (CSS lo controla)
-============================================================ -->
-<div class="sticky-mobile">
-  <script>
-    atOptions = {
-      'key' : '8672a679b2ef362fb27c8fff5b63c75d',
-      'format' : 'iframe',
-      'height' : 50,
-      'width' : 320,
-      'params' : {}
-    };
-  </script>
-  <script src="https://www.highperformanceformat.com/8672a679b2ef362fb27c8fff5b63c75d/invoke.js"></script>
-</div>
-
-
-<!-- ============================================================
-     POPUNDER — Mayor RPM. Se activa al primer clic del usuario.
-     Completamente invisible y no interrumpe la reproducción.
-============================================================ -->
-<script src="https://pl28923261.profitablecpmratenetwork.com/15/7f/93/157f930c95d47280d34a6369853ecb4d.js"></script>
-
-
-<script>
-  // ── RELOJ EN TIEMPO REAL ──
-  function updateClock() {
-    const now = new Date();
-    document.getElementById('clock').textContent =
-      now.toLocaleTimeString('es-DO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-  }
-  updateClock();
-  setInterval(updateClock, 1000);
-
-  // ── ACTIVAR STREAM AL HACER CLIC EN EL BOTÓN ──
-  // Cargar el iframe solo cuando el usuario lo pide (mejor UX + más clics = más popunder)
-  
-  }
-  function abrirStream(e) {
-  e.preventDefault();
-  const btn = document.getElementById('btn-watch');
-
-  // Cambia el botón a "Cargando..." mientras espera
-  btn.innerHTML = `
-    <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#fff">
-      <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.93V17a1 1 0 0 1-2 0v-.07A8 8 0 0 1 4.07 11H5a1 1 0 0 1 0 2h-.93A8 8 0 0 1 11 4.07V5a1 1 0 0 1 2 0v-.93A8 8 0 0 1 19.93 11H19a1 1 0 0 1 0-2h.93A8 8 0 0 1 13 16.93z"/>
-    </svg>
-    Cargando...`;
-  btn.style.opacity = '.7';
-  btn.style.pointerEvents = 'none';
-
-  // Espera 1.5 segundos para que el popunder se dispare primero,
-  // luego abre el stream en pestaña nueva
-  setTimeout(() => {
-    window.open(
-      'https://futbollibretv.su/eventos/?r=aHR0cHM6Ly9lc3ZpZGVvZnkuY29tL290ZS5waHA/aWQ9Zm94MXVz',
-      '_blank'
-    );
-    // Restaura el botón
-    btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#fff"><path d="M8 5v14l11-7z"/></svg> Ver en Vivo`;
-    btn.style.opacity = '1';
-    btn.style.pointerEvents = 'auto';
-  }, 1500);
-}
-</script>
+  <!-- ============================================================
+       BANNER STICKY INFERIOR
+       ⬇ BORRA .ad-placeholder-sticky y pega el <script> de Adsterra 320x50
+       ============================================================ -->
+  <div class="ad-sticky-bottom">
+    <div class="ad-placeholder-sticky">📢 Adsterra — Sticky 320×50 (fijo abajo)</div>
+    <!-- PEGA AQUÍ EL CÓDIGO DE ADSTERRA -->
+  </div>
 
 </body>
 </html>
